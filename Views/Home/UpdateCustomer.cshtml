@@ -1,0 +1,94 @@
+﻿@model Customer
+@{
+    ViewBag.Title = "Update a Customer";
+}
+
+<h2>Update a Customer <a asp-action="Index" class="btn btn-sm btn-secondary">Back</a></h2>
+
+@if (Model != null)
+{
+<form asp-action="UpdateCustomer" method="post">
+    @*<div class="form-group">
+    <label for="salutation">Salutation:</label>
+    <input class="form-control" name="salutation" />
+    </div>
+    <div class="form-group">
+    <label for="initials">Initials:</label>
+    <input class="form-control" name="initials" />
+    </div>*@
+    <div class="form-group">
+        <label for="firstname">First name:</label>
+            <input class="form-control" name="@Model.firstname" />
+    </div>
+    @*<div class="form-group">
+    <label for="firstname_ascii">First name Ascii:</label>
+    <input class="form-control" name="firstname_ascii" />
+    </div>*@
+    <div class="form-group">
+        <label for="lastname">Last name:</label>
+        <input class="form-control" name="lastname" />
+    </div>
+
+    <div class="form-group">
+        <label for="gender">Gender:</label>
+        <input class="form-control" name="gender" />
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input class="form-control" name="email" />
+    </div>
+    @*<div class="form-group">
+    <label for="password">Password:</label>
+    <input class="form-control" name="password" />
+    </div>*@
+    <div class="form-group">
+        <label for="phone_Number">Phone Number:</label>
+        <input class="form-control" name="phone_Number" />
+    </div>
+    <div class="form-group">
+        <label for="Country_code">Country code:</label>
+        <input class="form-control" name="Country_code" />
+    </div>
+    @* <div class="form-group">
+    <label for="country_name">Country name:</label>
+    <input class="form-control" name="country_name" />
+    </div>*@
+
+    <div class="form-group">
+        <label for="balance">Balance:</label>
+        <input class="form-control" name="balance" />
+    </div>
+    <div class="text-center panel-body">
+        <button type="submit" class="btn btn-sm btn-primary">Update</button>
+    </div>
+</form>
+
+    <h2>Customer</h2>
+    <table class="table table-sm table-striped table-bordered m-2">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Country Code</th>
+                <th>Gender</th>
+                <th>Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.id</td>
+                <td>@Model.firstname</td>
+                <td>@Model.lastname</td>
+                <td>@Model.email</td>
+                <td>@Model.phone_Number</td>
+                <td>@Model.country_code</td>
+                <td>@Model.gender</td>
+                <td>@Model.balance</td>
+            </tr>
+        </tbody>
+    </table>
+}

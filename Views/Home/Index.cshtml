@@ -1,0 +1,58 @@
+﻿@using System.Globalization;
+@model IEnumerable<Customer>
+
+@{
+    ViewData["Title"] = "Customer Details";
+    
+    CultureInfo usCulture = new CultureInfo("en-US");
+
+}
+
+<h2>All Customers</h2>
+@*<a asp-action="AddCustomer" class="btn btn-sm btn-primary">Add Customer</a>
+<a asp-action="GetCustomer" class="btn btn-sm btn-secondary">Get Customer</a>*@
+
+<table class="table table-sm table-striped table-bordered m-2">
+    <thead>
+        <tr>
+            <th>CustomerId</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+            <th>Phone_Number</th>
+            <th>Country_code</th>
+            <th>Gender</th>
+            <th>Balance</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model)
+        {
+            <tr>
+                <td>@r.id</td>
+                <td>@r.firstname</td>
+                <td>@r.lastname</td>
+                <td><a href="mailto:@r.email">@r.email</a></td>
+                <td>@r.phone_Number</td>
+                <td>@r.country_code</td>
+                <td>@r.gender</td>
+                <td>@r.balance.ToString("C", usCulture)</td>
+                <td>
+                    <a asp-action="UpdateCustomer" asp-route-id="@r.id">
+                        <img src="/edit.png" width="25" margin="auto" />
+                    </a>
+                </td>
+                <td>
+                    <form asp-action="DeleteCustomer" method="post">
+                        <input type="hidden" value="@r.id" name="customerId" />
+                        <input type="image" src="/delete.png" width="25" margin="auto" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="AddCustomer" class="btn btn-sm btn-primary">Add Customer</a>
