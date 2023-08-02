@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Text;
+using System.Linq;
 
 namespace CustomerApp.Controllers
 {
@@ -28,7 +29,7 @@ namespace CustomerApp.Controllers
                 }
 
             }
-            TempData["Id"] = customerList.OrderByDescending(u => u.id).FirstOrDefault();
+           // TempData["Id"] = customerList.OrderByDescending(u => u.id).FirstOrDefault();
             return View(customerList);
         }
 
@@ -38,10 +39,10 @@ namespace CustomerApp.Controllers
         public async Task<IActionResult> AddCustomer(Customer customer)
         {
             Customer receivedCustomer = new Customer();
-            if (TempData["Id"] != null)
-            {
-                customer.id = TempData["Id"].ToString();
-            }
+            //if (TempData["Id"] != null)
+            //{
+            //    customer.id = TempData["Id"].ToString();
+            //}
                 using (var httpClient = new HttpClient())
             {
                 StringContent content = new StringContent(JsonConvert.SerializeObject(customer), Encoding.UTF8, "application/json");
@@ -54,7 +55,8 @@ namespace CustomerApp.Controllers
             }
             return View(receivedCustomer);
         }
-        [HttpPut]
+
+        
         public async Task<IActionResult> UpdateCustomer(int id)
         {
             Customer customer = new Customer();
@@ -95,7 +97,7 @@ namespace CustomerApp.Controllers
             return View(receivedCustomer);
         }
 
-        [HttpDelete]
+        [HttpPost]
         public async Task<IActionResult> DeleteCustomer(int id)
         {
             using (var httpClient = new HttpClient())
