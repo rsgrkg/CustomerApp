@@ -16,6 +16,8 @@ namespace CustomerApp.Models
         public string? lastname_ascii { get; set; }
         public string? lastname_country_rank { get; set; }
         public string? lastname_country_frequency { get; set; }
+        [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address.")]
         public string? email { get; set; }
         public string? password { get; set; }
         public string? country_code { get; set; }

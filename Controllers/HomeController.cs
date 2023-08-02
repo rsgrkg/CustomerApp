@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Text;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace CustomerApp.Controllers
 {
@@ -29,7 +30,8 @@ namespace CustomerApp.Controllers
                 }
 
             }
-           // TempData["Id"] = customerList.OrderByDescending(u => u.id).FirstOrDefault();
+            HttpContext.Session.SetString("MaxId", customerList.OrderByDescending(u => Convert.ToInt32(u.id)).FirstOrDefault().id);
+
             return View(customerList);
         }
 
@@ -39,11 +41,11 @@ namespace CustomerApp.Controllers
         public async Task<IActionResult> AddCustomer(Customer customer)
         {
             Customer receivedCustomer = new Customer();
-            //if (TempData["Id"] != null)
-            //{
-            //    customer.id = TempData["Id"].ToString();
-            //}
-                using (var httpClient = new HttpClient())
+            if (HttpContext.Session.GetString("MaxId") != null)
+            {
+                customer.id = (int.Parse(HttpContext.Session.GetString("MaxId").ToString())+1).ToString();
+            }
+            using (var httpClient = new HttpClient())
             {
                 StringContent content = new StringContent(JsonConvert.SerializeObject(customer), Encoding.UTF8, "application/json");
 
@@ -71,7 +73,7 @@ namespace CustomerApp.Controllers
             return View(customer);
         }
 
-        [HttpPut]
+        [HttpPost]
         public async Task<IActionResult> UpdateCustomer(Customer customer)
         {
             Customer receivedCustomer = new Customer();
